@@ -1,8 +1,8 @@
-Copyright (C) 2011 Puppet Labs Inc
+Unless specified otherwise in a particular file, the code in this module is
+covered by the following Copyright notice:
 
-and some parts:
-
-Copyright (C) 2011 Krzysztof Wilczynski
+    Copyright (C) 2011 Puppet Labs Inc
+    Copyright (C) 2011 Krzysztof Wilczynski
 
 Puppet Labs can be contacted at: info@puppetlabs.com
 
