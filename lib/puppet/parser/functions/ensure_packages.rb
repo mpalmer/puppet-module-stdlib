@@ -18,8 +18,21 @@ require 'puppet/parser/functions'
 module Puppet::Parser::Functions
   newfunction(:ensure_packages, :type => :statement, :doc => <<-EOS
 Takes a list of packages and only installs them if they don't already exist.
+
+You can pass the package names as either an array, or a set of separate
+arguments, or any mix of the two.  All package names must be strings.
+
+If the final argument passed is a hash, it will be used as a set of parameters
+to pass to all of the packages created.  Otherwise, the default parameters used
+are `{ ensure => present }`.
     EOS
   ) do |arguments|
+    if arguments[-1].is_a? Hash
+      opts = arguments.pop
+    else
+    	opts = { 'ensure' => 'present' }
+    end
+    
     pkglist = arguments.flatten
 
     Puppet::Parser::Functions.function(:ensure_resource)
@@ -29,7 +42,7 @@ Takes a list of packages and only installs them if they don't already exist.
               "ensure_packages(): Package name must be a string (you gave me #{package_name.inspect})"
       end
 
-      function_ensure_resource(['package', package_name, {'ensure' => 'present' } ])
+      function_ensure_resource(['package', package_name, opts])
     end
   end
 end
